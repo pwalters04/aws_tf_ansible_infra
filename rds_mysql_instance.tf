@@ -6,15 +6,13 @@ resource "aws_vpc" "vpc-rds" {
     }
 }
 
-resource "aws_db_subnet_group" "rds-subnet"{
-    count = "${length(var.subnets_cidr)}"
-    name = "rds-subnet-group"  
-    vpc_id     = "${aws_vpc.vpc-rds.id}"
-    cidr_block = "${element(var.subnets_cidr, count.index)}"
-    availability_zone ="${element(var.azs, count.index)}"
 
-  tags = {
-    Name = "Subnet-RDS${count.index+1}"
+resource "aws_db_subnet_group" "rds-subnet"{
+    name = "rds-subnet-group"  
+    subnet_ids = "${aws_subnet.public.*.id}"
+    
+    tags = {
+    Name = "My_DB_subnet_group"
   }
 }
 
@@ -41,7 +39,7 @@ resource "aws_db_instance" "my_rds_mysql" {
   engine                      = "mysql"
   engine_version              = "5.7"
   instance_class              = "${var.rds_instance_class}"
-  name                        = "${var.database_name}"
+  name                        = "${var.database_name_Dev}"
   username                    = "${var.database_user}"
   password                    = "${var.database_temp_password}"
   parameter_group_name        = "default.mysql5.7"

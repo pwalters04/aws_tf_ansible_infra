@@ -3,13 +3,13 @@ resource "aws_subnet" "public" {
   vpc_id = "${aws_vpc.vpc-rds.id}"
   cidr_block = "${element(var.subnets_cidr,count.index)}"
   availability_zone = "${element(var.azs,count.index)}"
-  tags {
-    Name = "Subnet-${count.index+1}"
+  tags ={
+    Name = "Subnet-Public${count.index+1}"
   }
 }
 
 resource "aws_internet_gateway" "gateway-global" {
-  vpc_id = "${aws_vpc.vpc-rds}"
+  vpc_id = "${aws_vpc.vpc-rds.id}"
   tags = {
     Name = "global-gateway"
   }
@@ -22,7 +22,7 @@ resource "aws_route_table" "public-rt-sandbox" {
         gateway_id ="${aws_internet_gateway.gateway-global.id}"
     }
     tags = {
-        Name = "publicRouteTable-Sandbox-RDS"
+        Name = "RDSpublicRouteTable"
     } 
 }
 

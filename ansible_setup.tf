@@ -33,7 +33,7 @@ resource "null_resource" "AnsibleConnect" {
 
 }
 
-resource "null_resource" "HTOPInstall" {
+resource "null_resource" "HTOP_SQLClient_Install" {
     count = "${var.instance_count}"
     connection{
         type ="ssh"
@@ -45,6 +45,13 @@ resource "null_resource" "HTOPInstall" {
     inline = [
       "sudo apt-get update",
       "sudo apt-get install htop",
+    ]
+  }
+
+    provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo install mysql-client",
     ]
   }
 }
