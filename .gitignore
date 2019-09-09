@@ -4,6 +4,10 @@
 ### Terraform ###
 # Local .terraform directories
 **/.terraform/*
+*.pub
+*.pem
+hosts
+
 
 # .tfstate files
 *.tfstate
