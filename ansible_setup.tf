@@ -8,17 +8,13 @@ resource "null_resource" "AnsibleSetup" {
     provisioner "local-exec"{
         command = "echo ansible_ssh_user=${var.ssh_user_name} >> hosts"
     }
+    provisioner "local-exec"{
+        command = "echo ansible_ssh_private_key_file=${var.key_path} >> hosts"
+    }
       provisioner "local-exec" {
     command = "echo [${var.dev_host_label}] >> hosts"
   }
   
-}
-
-resource "null_resource" "Ansible_key_path" {
-  provisioner "local-exec"{
-        command = "echo ansible_ssh_private_key_file=${var.key_path} >> hosts"
-    }
-
 }
 
 
