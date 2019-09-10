@@ -49,15 +49,15 @@ variable "database_user" {
 }
 
 variable "vpc_cidr" {
-	default = "10.10.0.0/16"
+	default = "*********"
 }
 
 variable "subnets_cidr" {
 	type = "list"
-	default = ["10.10.1.0/24", "10.10.2.0/24"]
+	default = ["*******", "*********"]
 }
 variable "database_temp_password" {
-  default = "Random2019"
+  default = "*******"
 }
 
 
